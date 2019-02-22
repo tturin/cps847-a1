@@ -1,7 +1,14 @@
+sudo: false
 language: python
 python:
     - "3.6"
 install:
     - pip install slackclient
+    - pip install pytest-cov pytest
+    - pip install codecov
 script:
-    - pytest echobot/test_echobot.py
+    - py.test --cov-report term --cov=echobot/
+env:
+    - CODECOV_TOKEN=4e3629d9-80e8-4f6a-80fb-0a5a81731004
+after_success:
+    - codecov
