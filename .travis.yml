@@ -4,4 +4,4 @@ python:
 install:
     - pip install slackclient
 script:
-    - pytest echobot\test_echobot.py
+    - pytest echobot/test_echobot.py
