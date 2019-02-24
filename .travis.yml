@@ -13,7 +13,7 @@ env:
 after_success:
 - codecov
 before_deploy:
-- openssl aes-256-cbc -iv $encrypted_db49419baf50_iv -K $encrypted_db49419baf50_key
+- openssl aes-256-cbc -K $encrypted_db49419baf50_key -iv $encrypted_db49419baf50_iv
   -in deploy_rsa.enc -out /tmp/deploy_rsa -d
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/deploy_rsa
@@ -24,4 +24,3 @@ deploy:
   script: rsync -r --delete-after --quiet ./a2_index tturin@moon.scs.ryerson.ca:/home/avm/courses/cps847/tturin
   on:
     branch: master
-
