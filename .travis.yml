@@ -13,8 +13,8 @@ env:
 after_success:
 - codecov
 before_deploy:
-- openssl aes-256-cbc -iv $encrypted_db49419baf50_iv -K $encrypted_db49419baf50_key
-  -in deploy_rsa.enc -out /tmp/deploy_rsa -d -k ""
+- openssl aes-256-cbc -k '' -iv $encrypted_db49419baf50_iv -K $encrypted_db49419baf50_key
+  -in deploy_rsa.enc -out /tmp/deploy_rsa -d
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/deploy_rsa
 - ssh-add /tmp/deploy_rsa
