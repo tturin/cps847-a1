@@ -12,15 +12,14 @@ env:
   matrix:
   - CODECOV_TOKEN=4e3629d9-80e8-4f6a-80fb-0a5a81731004
   global:
-    secure: hiYpKyeFtsokVx4XcfB/63QllkJt+i7NVoC1QvNzD9G+PPYqlK0sUdGYHjeC8Y78UgTznFLsuwczbUOkhJsFB6BpmOIguB6aqGFUdU0vpFAwgEwi6y7yQgqv4LjTnWX0nw0dpKPJ75So9ECq54S6D8DslhEh8ogCNCnYwmLq68f+jy184Pbu0OWOmPARe0irjdnkgorjntSg3ZMULnA2Ka9TQCTt+1bqzritGLhOOcxr18yDDW6tNsInjkYUxaBdC8w+xq6/LrbZsXvIPUQKLubwvRUkQ+Nt6Ddm7VVKlg2UxA6AxnMglw/QuOJniM2Vb4AkZTSRhrUpsOAITASUZLSLhRzEXcZdjDFsRpoIMk9fRrdYqtbOdFG56c1iJ032iSBySB83f/uWJPv+Ry4+deXbFI6wusGpXBzHi29X8mrMVEyak1bPfMFegQo/WqU8DfpOs0pSGUQ5aW9Hcmf0FmyzSGVBCQSOR8895EwjXAgN5l0BbRTY0UUe4GU35LEUj4sSAc+DuxZ2jAR8/HdT5BFkgxCTa2i79+2mkvDYSTDgAPj4yzVE1j7/JK8BLiShP1RlQdU0stnU3RludiwI3/rr9Jg78VeP8OLx/KT7nxQUIlMvLgopMHpWd8zJcLDQPdP6twVAGZc8tLPjCTcsmFhDkE0xU5kEuCITkCId/Gk=
+    secure: jYhG5Ow7oIcDxZZpsBodxI+KrMkhP+EoUw0DkHsxoDB+SDc0n42jBVnEIELIwjKgxPgPGZ5IWYIoSh4evW2+98UnkwqGE5+dC/pnH8zp7DjX9pSGXeSG3lk1FPylFHFTZ/yp+OhijWBRb+s7EZwR9un3J+2alSDvb1DGVa0SiCgyIDqs+tSrazPcn1AkCK0bOf3f9FBIx/5Cihkk0RxEuwwhiWTDU7PHVZtMTBdU+8geb66o2blg+rb658levWp0XqXAPibAUNXLX8Njn5/iOu74CTwh00P0sBd63l8R6M3Q5I44jv72FsNsHg0Dmw+QDHPt+e2ZP3m8jl9PkHC+mZ8M0BhMu3bYDT9/Zi5BJJsqiQ9p95WGNmT8mQANBcylu9u9n1JBhGkUuQGYRIS3TGDBCpdCK0D1dzchAVcimKRo+V3uXjWR+8zN8nXXUCiijO3iKzcq3IYms+ELEfTEn7LhdcZ2o9RTUvJ56lXhld1LWpPNUhbFtM+lnWmeOxCQ1vwq3tUItC76Cbeq1KI8qodSQ5+j8C9B18j84By3DhV/mHpb6G2lOUmIKH88XsCuvJlCpTIEeY1+ss37XNC1w7FCnjzc4Dcd6u6OxvIMvsPU7DLwFPenw+U5cFhRxT1jwIaoBNmmaqr6Hu8WhQWg3gOJAuqYA/FC4g9f4i6GHeg=
 after_success:
 - codecov
 before_deploy:
-- openssl aes-256-cbc -iv $encrypted_db49419baf50_iv -K $encrypted_db49419baf50_key
-  -in rsa_deploy.enc -out /tmp/rsa_deploy -d
+- openssl aes-256-cbc -k "$secret_pass" -in new_deploy.enc -out /tmp/new_deploy -d
 - eval "$(ssh-agent -s)"
-- chmod 600 /tmp/deploy_rsa
-- ssh-add /tmp/deploy_rsa
+- chmod 600 /tmp/new_deploy
+- ssh-add /tmp/new_deploy
 deploy:
   provider: script
   skip_cleanup: true
