@@ -16,7 +16,7 @@ env:
 after_success:
 - codecov
 before_deploy:
-- openssl aes-256-cbc -k "asdfasdf" -i new_deploy.enc -out /tmp/new_deploy -d
+- openssl aes-256-cbc -k "asdfasdf" -in new_deploy.enc -out /tmp/new_deploy -d
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/new_deploy
 - ssh-add /tmp/new_deploy
