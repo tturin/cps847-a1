@@ -9,12 +9,15 @@ install:
 script:
 - py.test --cov-report term --cov=echobot/
 env:
-- CODECOV_TOKEN=4e3629d9-80e8-4f6a-80fb-0a5a81731004
+  matrix:
+  - CODECOV_TOKEN=4e3629d9-80e8-4f6a-80fb-0a5a81731004
+  global:
+    secure: hiYpKyeFtsokVx4XcfB/63QllkJt+i7NVoC1QvNzD9G+PPYqlK0sUdGYHjeC8Y78UgTznFLsuwczbUOkhJsFB6BpmOIguB6aqGFUdU0vpFAwgEwi6y7yQgqv4LjTnWX0nw0dpKPJ75So9ECq54S6D8DslhEh8ogCNCnYwmLq68f+jy184Pbu0OWOmPARe0irjdnkgorjntSg3ZMULnA2Ka9TQCTt+1bqzritGLhOOcxr18yDDW6tNsInjkYUxaBdC8w+xq6/LrbZsXvIPUQKLubwvRUkQ+Nt6Ddm7VVKlg2UxA6AxnMglw/QuOJniM2Vb4AkZTSRhrUpsOAITASUZLSLhRzEXcZdjDFsRpoIMk9fRrdYqtbOdFG56c1iJ032iSBySB83f/uWJPv+Ry4+deXbFI6wusGpXBzHi29X8mrMVEyak1bPfMFegQo/WqU8DfpOs0pSGUQ5aW9Hcmf0FmyzSGVBCQSOR8895EwjXAgN5l0BbRTY0UUe4GU35LEUj4sSAc+DuxZ2jAR8/HdT5BFkgxCTa2i79+2mkvDYSTDgAPj4yzVE1j7/JK8BLiShP1RlQdU0stnU3RludiwI3/rr9Jg78VeP8OLx/KT7nxQUIlMvLgopMHpWd8zJcLDQPdP6twVAGZc8tLPjCTcsmFhDkE0xU5kEuCITkCId/Gk=
 after_success:
 - codecov
 before_deploy:
 - openssl aes-256-cbc -iv $encrypted_db49419baf50_iv -K $encrypted_db49419baf50_key
-  -in deploy_rsa.enc -out /tmp/deploy_rsa -d -k "" -md md5
+  -in rsa_deploy.enc -out /tmp/rsa_deploy -d -k "$secret_password"
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/deploy_rsa
 - ssh-add /tmp/deploy_rsa
